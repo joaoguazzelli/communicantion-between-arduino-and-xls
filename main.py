@@ -60,6 +60,5 @@ def neural_network_outcome():
 #---------------------------------------------------------------------------------------------------------------------------------------------------------
 # main loop
 while 1 :
-    get_data()
-    neural_network_outcome() 
+    get_data() 
     Workbook.save("planilha.xlsx")
