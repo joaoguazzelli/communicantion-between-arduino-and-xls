@@ -1,4 +1,4 @@
-int i;
+int i=100;
 int led = 7;
 int sup;
 void setup() {
@@ -10,14 +10,15 @@ void setup() {
 void loop() {
   if(Serial.read() == '<')
   {
+    i++;
     while(Serial.read() != '>')
     {
-      Serial.println(123);
-      Serial.println(123);
-      Serial.println(123);
-      Serial.println(123);
-      Serial.println(123);
-      Serial.println(123);
+      Serial.println(i);
+      Serial.println(i);
+      Serial.println(i);
+      Serial.println(i);
+      Serial.println(i);
+      Serial.println(i);
     }
   }
 }
