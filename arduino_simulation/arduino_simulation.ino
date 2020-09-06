@@ -8,18 +8,22 @@ void setup() {
  }
 
 void loop() {
-  if(Serial.read() == '<')
-  {
-    i++;
-    while(Serial.read() != '>')
-    {
-      Serial.println(i);
-      Serial.println(i);
-      Serial.println(i);
-      Serial.println(i);
-      Serial.println(i);
-      Serial.println(i);
-    }
-  }
+    
+      if(Serial.read() == '<')
+      {
+        while(Serial.read() != '>'){
+        //Serial.println('<');
+          Serial.println(i);
+          Serial.println(i);
+          Serial.println(i);
+          Serial.println(i);
+          Serial.println(i);
+          Serial.println(i);
+          Serial.flush();
+        //Serial.println('>');
+         //delay(1);
+          i++;
+        }
+      }
 }
- 
+     

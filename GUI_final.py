@@ -6,8 +6,8 @@ import time
 Workbook = openpyxl.Workbook()
 WorkSheet = Workbook.active
 root = tk.Tk()
-root.geometry("680x400")
-root.title('Capitão América >>> Homem de ferro')
+root.geometry("850x400")
+root.title('Eu tenho Doutorado')
 #root.resizable(False, False)
 root.config(padx=10, pady=10, background='#000')
 port = '/dev/ttyACM0'  # define it to the port where the arduino is connected
@@ -27,7 +27,7 @@ sensors = [
     ['Atividade', variable4],
     ['Umidade', variable5],
     ['Percepção Sensorial', variable6],
-    ['O capitão é melhor que o stark?', variable7]
+    ['Resposta rede', variable7]
 ]
 
 
@@ -43,30 +43,45 @@ def make_labels():
             sensors_row.append(sensor)
     
     return sensors_row
-sensors_row = make_labels()
-sensors_row[-1].config(text='sim')
+
 def get_data():
-    num_line = 1
-    num_column = 7
-    contador_sensor = 1
-    ser.write(b'<')  # special character that the arduino should wait to star sending data
+    global num_line
+    num_column = len(sensors) - 1
     
-    # receive the data from the serial port, check if its a valid character and them save it on the right cell
-    for i in range(1, num_column):
+    contador_sensor = 1
+    
+    ser.write(b'<')  # special character that the arduino should wait to star sending data
+
+    for i in range(1, num_column + 1): # receive the data from the serial port, check if its a valid character and them save it on the right cell
         serial_reading = ser.readline().decode('ascii')
         
         if serial_reading != '':
             WorkSheet.cell(row=num_line, column=i, value=serial_reading)
-            reading = WorkSheet.cell(num_line, i)
-            sensors_row[contador_sensor].configure(text=reading.value)
-            print(reading.value)
+            sensors_row[contador_sensor].configure(text=serial_reading)
             
-            if i == (num_column-1):
-                num_line = num_line + 1
+            if i == (num_column):
+                num_line += 1
+        
         contador_sensor += 2
+    
     ser.write(b'>')  # special character that the arduino should wait to stop sending data
-    time.sleep(1)
-    root.after(100, get_data)
+    
 
-get_data()
+value = 0
+def neural_network():
+    global value
+    WorkSheet.cell(row=num_line, column=7, value=0)  # represents the neural network response
+    sensors_row[-1].config(text=value)
+    value += 1
+
+def GUI():
+    get_data()
+    neural_network()
+    #Workbook.save("planilha.xlsx")
+    root.after(100, GUI)
+
+num_line = 1
+
+sensors_row = make_labels()
+GUI()
 root.mainloop()
