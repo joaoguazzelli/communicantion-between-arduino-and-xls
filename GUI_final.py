@@ -67,12 +67,23 @@ def get_data():
     ser.write(b'>')  # special character that the arduino should wait to stop sending data
     
 
-value = 0
+
 def neural_network():
-    global value
-    WorkSheet.cell(row=num_line, column=7, value=0)  # represents the neural network response
-    sensors_row[-1].config(text=value)
-    value += 1
+    num_column = len(sensors)
+
+    WorkSheet.cell(row=num_line, column=num_column, value=2)  # represents the neural network response
+
+    network_response_text = WorkSheet.cell(row=num_line, column=num_column)
+    
+    if network_response_text.value == 1:
+        sensors_row[-1].config(text='Risco Brando')
+    
+    elif network_response_text.value == 2:
+        sensors_row[-1].config(text='Risco Moderado')
+    
+    elif network_response_text == 3:
+        sensors_row[-1].config(text='Risco Severo')
+
 
 def GUI():
     get_data()
