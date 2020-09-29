@@ -89,6 +89,7 @@ def GUI():
     get_data()
     neural_network()
     #Workbook.save("planilha.xlsx")
+    time.sleep(30)
     root.after(100, GUI)
 
 num_line = 1
