@@ -9,19 +9,24 @@ void setup() {
 
 void loop() 
 {
-  if(Serial.read() == '<')
-  {
-    while(Serial.read() != '>')
-    {
-      Serial.println(i);
-      Serial.println(i);
-      Serial.println(i);
-      Serial.println(i);
-      Serial.println(i);
-      Serial.println(i);
+
+      Serial.print('<');
+      Serial.print(',');
+      Serial.print(i);
+      Serial.print(',');
+      Serial.print(i);
+      Serial.print(',');
+      Serial.print(i);
+      Serial.print(',');
+      Serial.print(i);
+      Serial.print(',');
+      Serial.print(i);
+      Serial.print(',');
+      Serial.print(i);
+      Serial.print(',');
+      Serial.println('>');
+      delay(1000);
       Serial.flush();
       i++;
-    }
-  }
 }
      
