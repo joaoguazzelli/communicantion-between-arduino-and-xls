@@ -54,4 +54,5 @@ def treino_RNA():
     classificador_json = classificador.to_json()
     with open('classificador_braden_teste.json', 'w') as json_file:
         json_file.write(classificador_json)
-    classificador.save_weights('classificador_braden_teste.h5')
+
+    return classificador.history.history['categorical_accuracy'][-1]

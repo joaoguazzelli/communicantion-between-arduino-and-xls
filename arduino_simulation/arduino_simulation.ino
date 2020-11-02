@@ -26,7 +26,7 @@ void loop()
       Serial.print(i);
       Serial.print(',');
       Serial.println('>');
-      delay(1000);
+      delay(10000);
       Serial.flush();
       i++;
 }

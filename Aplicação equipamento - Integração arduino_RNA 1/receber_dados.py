@@ -14,13 +14,18 @@ num_line = 1
 
 def get_data() -> List[str]:
     global num_line
-
+    i = 0
     num_column = 6  # number of inputs +1
     x = []
 
     x = ser.readline().decode('ascii')
     serial_reading = x.split(",")
     print(serial_reading)
+    while serial_reading[0] != '<' and serial_reading[-1] != '>\r\n':
+        x = ser.readline().decode('ascii')
+        serial_reading = x.split(",")
+        print(serial_reading)
+
     try:
         if serial_reading[0] == '<' and serial_reading[-1] == '>\r\n':
             serial_reading.remove('<')
@@ -35,6 +40,7 @@ def get_data() -> List[str]:
                     num_line += 1
 
         Workbook.save("dados_ard.xlsx")
+
     except:
         get_data()
     return serial_reading

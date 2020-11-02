@@ -47,21 +47,24 @@ def execucao_RNA():
     #enviar a previsão_nominal para a IDE em python;
     #ler o arquivo do equipamento constantemente- salvar automático
 
-    risco_nominal = 'risco vazio'
+    print(previsoes_nominal)
 
-    if previsoes_nominal == 4:
+    risco_nominal = ''
+
+    if previsoes_nominal[1] == 4:
         risco_nominal = 'SEM RISCO'
-    elif previsoes_nominal == 3:
+    elif previsoes_nominal[1] == 3:
         risco_nominal = 'MUITO ALTO'
-    elif previsoes_nominal == 2:
+    elif previsoes_nominal[1] == 2:
         risco_nominal = 'MODERADO'
-    elif previsoes_nominal == 1:
+    elif previsoes_nominal[1] == 1:
         risco_nominal = 'BAIXO'
-    elif previsoes_nominal == 0:
+    elif previsoes_nominal[1] == 0:
         risco_nominal = 'ALTO'
-    
-    print(risco_nominal)
+
     return risco_nominal
+
+
 
     
 

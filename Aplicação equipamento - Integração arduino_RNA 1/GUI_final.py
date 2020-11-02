@@ -3,6 +3,7 @@ from PIL import ImageTk, Image
 from rna_treino_teste import treino_RNA
 from rna_execucao_teste import execucao_RNA
 from receber_dados import get_data
+from export_html import export_to_html
 
 root = Tk()
 root.title("Projeto de Doutorado em Engenharia Biomédica")
@@ -10,24 +11,24 @@ root.config(background="#1f487c")
 
 cabecalho = ImageTk.PhotoImage(Image.open("Cabecalho.png"))
 
-Aquisicao = 100
-Acuracia = "100%"
+
+
 
 # Criação das labels ------------------------------------------------------------------------
 LabelCabecalho = Label(image=cabecalho)
 LabelTitulo = Label(root, text="Aplicação de algoritmo de Redes Neurais Artificiais \
 \n para previsão de desenvolvimento de úlceras por pressão", bg="#1f487c", fg="white")
 
-LabelFriccao = Label(root, text=f"Fricção: {0}", width=20, height=2)
-LabelNutricao = Label(root, text=f"Nutrição: {0}", width=20, height=2)
-LabelMobilidade = Label(root, text=f"Mobilidade: {0}", width=20, height=2)
-LabelAtividade = Label(root, text=f"Atividade: {0}", width=20, height=2)
-LabelUmidade = Label(root, text=f"Umidade: {0}", width=20, height=2)
-LabelPercepcaoSensorial = Label(root, text=f"Percepção Sensorial: {0}", width=20, height=2)
+LabelFriccao = Label(root, text=f"Fricção: {0}", width=22, height=2)
+LabelNutricao = Label(root, text=f"Nutrição: {0}", width=22, height=2)
+LabelMobilidade = Label(root, text=f"Mobilidade: {0}", width=22, height=2)
+LabelAtividade = Label(root, text=f"Atividade: {0}", width=22, height=2)
+LabelUmidade = Label(root, text=f"Umidade: {0}", width=22, height=2)
+LabelPercepcaoSensorial = Label(root, text=f"Percepção Sensorial: {0}", width=22, height=2)
 
-LabelRisco = Label(root, text=f"Risco: {None}", width=15, height=2)
-LabelAquisicao = Label(root, text=f"Aquisição: {Aquisicao}", width=15, height=2)
-LabelAcuracia = Label(root, text=f"Acurácia: {Acuracia}", width=15, height=2)
+LabelRisco = Label(root, text=f"Risco: {None}", width=18, height=2)
+LabelAquisicao = Label(root, text=f"Aquisição: {0}", width=18, height=2)
+LabelAcuracia = Label(root, text=f"Acurácia: {0}", width=18, height=2)
 
 
 # Funções para os botões -----------------------------------------------------------
@@ -37,9 +38,7 @@ def exec_RNA() -> None:
 
 
 def dados() -> None:
-    numero_de_leituras = 10
-
-    leitura_sensores = [0, 0, 0, 0, 0, 0]
+    numero_de_leituras = 300
     for i in range(numero_de_leituras):
         leitura_sensores = get_data()
         LabelAquisicao.config(text=f"Aquisição: {i}")
@@ -51,12 +50,18 @@ def dados() -> None:
         LabelPercepcaoSensorial.config(text=f"Percepção Sensorial: {leitura_sensores[5]}")
         root.update()
 
+def executa_treino():
+    acuracia = treino_RNA()
+    acuracia = acuracia*100
+    acuracia = round(acuracia,2)
+    LabelAcuracia.config(text=f"Acurácia:{acuracia}%")
+    root.update()
 
 # Criação dos botões ------------------------------------------------------------------
 BotaoAquisicaoArduino = Button(root, text="Aquisição \n Arduino", width=10, command=dados)
-BotaoTreinoRNA = Button(root, text="Treino \n RNA", width=10, command=treino_RNA)
+BotaoTreinoRNA = Button(root, text="Treino \n RNA", width=10, command=executa_treino)
 BotaoExecucaoRNA = Button(root, text="Execução \n RNA", width=10, command=exec_RNA)
-BotaoPlanilhaDeAquisicao = Button(root, text="Planilha de \n Aquisição", width=10)
+BotaoPlanilhaDeAquisicao = Button(root, text="Planilha de \n Aquisição", width=10, command=export_to_html)
 BotaoFinalizar = Button(root, text="Finalizar \n Aplicação", width=10, command=root.quit)
 
 # Posicionamento na tela --------------------------------------------------------
